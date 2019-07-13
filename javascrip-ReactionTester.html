@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Reaction Tester</title>
+        
+        <style>
+            #figura {
+                position: absolute;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <h1>Teste suas reações!</h1>
+        <p>Clique nos quadrados ou círculos o mais rápido que você conseguir!</p>
+        <button id="start">Começar</button>
+
+        <p id="temporizador">Tempo: <span id="tempo"></span></p>
+        <div id="figura"></div>
+
+        
+        <script>
+            document.getElementById("temporizador").style.display = "none";
+           
+            //INICIO DO CONTADOR
+           document.getElementById("start").onclick = function(){
+               iniciar();
+               chamaForma();
+               chamaCor();
+               chamaTamanho();
+           } 
+            
+            var startTime, endTime;
+            function iniciar(){
+                document.getElementById("start").style.display = "none";
+                document.getElementById("figura").style.display = "block";
+                document.getElementById("temporizador").style.display = "block";
+                startTime = new Date().getTime();
+            }
+
+            //CONTINUAÇÃO DO CONTADOR
+            document.getElementById("figura").onclick = function(){
+                document.getElementById("figura").style.display = "none";
+                endTime = new Date().getTime();
+                paraContador(); 
+            }
+            
+            //PARAR CONTADOR
+            function paraContador(){                
+                var time = endTime - startTime;
+                document.getElementById("tempo").innerHTML = (time/1000)+"s";
+                endTime = 0;
+                setTimeout(function(){
+                    iniciar();
+                    chamaForma();
+                    chamaCor();
+                    chamaTamanho();  
+                },1000);
+                
+            }
+
+            
+            //FORMA ALEATÓRIA
+           
+           function chamaForma(){
+               document.getElementById("figura").style.borderRadius = forma();
+               function forma(){
+                    var radio = raio();
+                    if(radio == 0){
+                        return ("50%");
+                    }else {
+                        return ("0");
+                    }
+                }
+               function raio(){
+                   return(Math.round(Math.random()));
+                }
+               
+           } 
+            
+            //COR ALEATÓRIA
+           function chamaCor(){
+               document.getElementById("figura").style.backgroundColor = randomColor();
+            
+                function randomColor(){
+                    var color='rgb('+Math.round(Math.random()*255)+','+Math.round(Math.random()*255)+','+Math.round(Math.random()*255)+')';
+                    return color;
+                }
+           }
+            
+            
+            //TAMANHO ALEATÓRIO entre 50 e 250px
+            var tamWidth;
+            function chamaTamanho(){
+                tamWidth = document.getElementById("figura").style.width = largura();
+                document.getElementById("figura").style.height = tamWidth;
+                function largura(){
+                    var lado =(Math.floor(Math.random()*201)+50)+'px';
+                    return lado;
+                }
+            
+            //POSIÇÃO ALEATÓRIA MIN = 155PX NO TOP
+                document.getElementById("figura").style.top = posicao()
+                function posicao(){
+                    var posTop = (Math.round(Math.random()*(window.innerHeight-155 +1))+155)+"px";
+                    return posTop; 
+                }
+                document.getElementById("figura").style.left = posLeft();
+                function posLeft(){
+                    var posicaoLeft = (Math.round(Math.random()*window.innerWidth))+"px";
+                    return posicaoLeft;
+                } 
+            }
+                        
+        </script>
+    </body>
+</html>
