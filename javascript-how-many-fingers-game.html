@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Quantos dedos?  ---game---</title>
+    </head>
+    <body>
+    
+        <p>Quantos dedos eu estou segurando?</p>
+        <input type="text" id="valorDigitado" placeholder="Valores entre 0 e 5">
+        <p><button id="clique">Adivinhe</button></p>
+        <p id="resultado"></p>
+    <script type="text/javascript">
+       
+        var numero = Math.floor(Math.random()*6);
+        var tentativas = 0;
+        document.getElementById("clique").onclick = function(){
+            var valorDigitado = document.getElementById("valorDigitado").value;
+                        
+            if(valorDigitado < 0 | valorDigitado > 5 | document.getElementById("valorDigitado").value == ""){
+                document.getElementById("resultado").innerHTML = "Número inválido!";
+                
+            }else if (valorDigitado == numero){
+               
+               tentativas = tentativas + 1; document.getElementById("resultado").innerHTML = "PARABÉNS!! O valor está correto." + "<p>Número de tentativas: "+ tentativas;
+                
+            }else {
+               tentativas = tentativas + 1; document.getElementById("resultado").innerHTML = "Tente novamente!"+ "<p>Número de tentativas</p>" + tentativas;
+            }
+        }
+        
+        
+        console.log(numero);
+    </script>
+    </body>
+</html>
